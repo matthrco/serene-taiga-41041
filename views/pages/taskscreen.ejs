@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% include ../partials/header.ejs %>
+		<link rel="stylesheet" type="text/css" href="./stylesheets/puzzle.css" />
+		<script src="./scripts/slide.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#game_area').puzzle_dg("<%= layout %>");
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="container theme-showcase" role="main">
+			<!-- Main jumbotron for a primary marketing message or call to action -->
+			<div class="jumbotron">
+				<div id="game_area">
+					<div id="board">
+					</div>
+				</div>
+				<form role="form" data-toggle="validator" action="/reset" method="post">
+					<div class="form-group form-inline text-center">
+						<button type="submit" class="btn btn-primary">Reset</button>
+					</div>
+				</form>
+			</div>
+		</div> <!-- /container -->
+	</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% include ../partials/header.ejs %>
+		<link rel="stylesheet" type="text/css" href="./stylesheets/puzzle.css" />
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+	</head>
+
+	<body>
+		<div class="container theme-showcase" role="main">
+			<!-- Main jumbotron for a primary marketing message or call to action -->
+			<div class="jumbotron" style="overflow: auto">
+				<h1 class="text-center">
+				Welcome
+				</h1>
+				<h4 class="text-center">
+				<b><u>Will my data be confidential?</u></b>
+				<br>
+				All data collected is anonymous, you may optionally provide your email address but this is not a requirement. You may access, correct or request removal of your data in the case that you provide your email. Your data will be held on a password protected computer, and used only in accordance with the Data Protection Act (1998). 
+				<br><br>
+				<b><u>What happens if I change my mind?</u></b>
+				<br>
+				You may withdraw at any time and for any reason. You may keep any benefits you receive before the time of withdrawal.
+				You will only be allowed to participate in this experiment once, any attempt at multiple participation will be detected and dealt with according with these terms.
+				<br><br>
+				<b><u>What happens if something goes wrong?</u></b>
+				<br>
+				Should you have any concern or complaint, contact either of us if possible (<a href="mailto:ss2@soton.ac.uk">ss2@soton.ac.uk</a>, <a href="mailto:mc18g14@soton.ac.uk">mc18g14@soton.ac.uk</a>) otherwise please contact the Research Integrity & Governance Team (<a href="mailto:rgoinfo@soton.ac.uk">rgoinfo@soton.ac.uk</a>).
+				<br><br>
+				To take part you must agree to the statements and prove that you are a human below.
+				<br><br>
+				Data Protection Statement: 
+				<i>
+				I understand that information collected during my participation in this study is will be stored on a password protected computer and that this information will only be used in accordance with the Data Protection Act (1998).
+				The DPA (1998) requires data to be processed fairly and lawfully in accordance with the rights of participants and protected by appropriate security.  All files containing any personal data will be made anonymous.
+				</i>
+				<form class="text-center" data-toggle="validator" role="form" action="./accept" method="post">
+					<label>
+						<input type="checkbox" id="terms" data-error="Please tick this box if you wish to proceed." required>
+						I agree with the Data Protection Statement above, understand that my participation is voluntary and that I may withdraw at any time for any reason.
+					</label>
+					<p class="text-danger"><%= captchatext %></p>
+					<center>
+						<div class="g-recaptcha" data-sitekey="6LdJtxUUAAAAABu-5X56cYD_tVTWw5EF9huHLMkO"></div>
+					</center>
+					<br>
+				</h4>
+					<button type="submit" class="btn btn-lg btn-primary center-block">Continue</button>
+				</form>
+				<br>
+				<br>
+				<img src="./images/University_of_Southampton_Logo.svg" style="float:right;width:25%">
+			</div>
+		</div> <!-- /container -->
+	</body>
+</html>

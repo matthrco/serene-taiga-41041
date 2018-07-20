@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% include ../partials/header.ejs %>
+		<script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
+		<script>			
+			function addLoadEvent(func) {
+			  var oldonload = window.onload;
+			  if (typeof window.onload != 'function') {
+				window.onload = func;
+			  } else {
+				window.onload = function() {
+				  if (oldonload) {
+					oldonload();
+				  }
+				  func();
+				}
+			  }
+			}
+			
+			addLoadEvent(function(){
+				if("<%= email %>" !== ""){
+					$('#myModal').modal('show');
+				}
+			});
+			
+			addLoadEvent(function(){
+				$('#myModal').on('hidden.bs.modal', function () {
+					$.post("/seen");
+				})
+			});
+		</script>
+		<%if (split !== null || treatment === 2) { %>
+			<script>
+			$(document).ready(function() {
+				document.getElementById("website").value = document.location.href;
+				$.ajax({
+					type: 'POST',
+					url: './button',
+					data: 'button=copy',
+				});
+				new Clipboard('.btn');
+			});
+			
+			function facebook(){
+				window.open("https://www.facebook.com/sharer.php?u=" + document.location.href);
+				$.ajax({
+					type: 'POST',
+					url: './button',
+					data: 'button=facebook',
+				});
+			}
+			
+			function tweet(){
+				window.open("https://twitter.com/intent/tweet?text=Click+this+link+to+earn+a+quick+reward+and+help+research%3A+" + document.location.href);
+				$.ajax({
+					type: 'POST',
+					url: './button',
+					data: 'button=tweet',
+				});
+			}
+			
+			function email(){
+				document.location.href = "mailto:?subject=Help%20research%20and%20join+me&body=Click%20this%20link%3A%20https%3A%2F%2F" + document.location.href;
+				$.ajax({
+					type: 'POST',
+					url: './button',
+					data: 'button=email',
+				});
+			}
+			</script>
+		<% } %>
+	</head>
+
+	<body>
+		<div class="container theme-showcase" role="main">
+			<!-- Main jumbotron for a primary marketing message or call to action -->
+			<div class="jumbotron" style="overflow: auto">
+				<h1 class="text-center">Congratulations!</h1>
+				<h3 class="text-center">Here is your Amazon gift voucher: <%= vouchercode %></h4>
+				<%if(budget > 0) { %>
+					<%if (treatment < 2) { %>
+						<%if (split === null) { %>
+							<h5 class="text-center">
+								Please decide how much of a percentage of &pound;1 you would like to receive for referring more people.
+								<br>
+								Those you refer will each get the remaining proportion of the &pound;1.
+							</h5>
+							<form class="text-center" data-toggle="validator" role="form" action="./split" method="post">
+								<label class="radio-inline">
+									<input type="radio" name="split" value="0">Nothing
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="10">10p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="20">20p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="30">30p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="40">40p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="50">50p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="60">60p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="70">70p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="80">80p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="90">90p
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="split" value="100">&pound;1
+								</label>
+								<br>
+								<button type="submit" class="btn btn-primary">Continue</button>
+							</form>
+							<div class="form-inline text-center">
+								<input type="text" class="form-control" id="website" disabled>
+								<button class="btn disabled" data-clipboard-target="#website" onclick="copy()">
+									<img src="./images/clippy.svg" width="13" alt="Copy to clipboard">
+									Copy to clipboard
+								</button>
+							</div>
+							<br>
+							<div class="text-center">
+								<button class="btn disabled" onclick="facebook()">
+										<img src="./images/facebook.svg" width="30">
+										Share on Facebook
+								</button>
+								<button class="btn disabled" onclick="tweet()">
+										<img src="./images/twitter.svg" width="37">
+										Share on Twitter
+								</button>
+								<button class="btn disabled" onclick="email()">
+										<img src="./images/email.svg" width="30">
+										Share by Email
+								</button>
+							</div>
+						<% }else{ %>
+							<h5 class="text-center">Share your unique link either below or from your address bar to receive a further <%= split %>p in Amazon vouchers for each person you refer as well as allowing them to receive <%= 100-split %>p on top of their payment for completing the task.</h5>
+							
+							<div class="form-inline text-center">
+								<input type="text" class="form-control" id="website">
+								<button class="btn" data-clipboard-target="#website" onclick="copy()">
+									<img src="./images/clippy.svg" width="13" alt="Copy to clipboard">
+									Copy to clipboard
+								</button>
+							</div>
+							<br>
+							<div class="text-center">
+								<button class="btn" onclick="facebook()">
+										<img src="./images/facebook.svg" width="30">
+										Share on Facebook
+								</button>
+								<button class="btn" onclick="tweet()">
+										<img src="./images/twitter.svg" width="37">
+										Share on Twitter
+								</button>
+								<button class="btn" onclick="email()">
+										<img src="./images/email.svg" width="30">
+										Share by Email
+								</button>
+							</div>
+							<br>
+							<h4 class="text-center"><%= referred %>/10 referred so far</h4>
+							<br>
+							<h4 class="text-center">Save your email below if you do not wish to return to this page in 24 hours and would prefer to be emailed your additional voucher code.</h4>
+							<br>
+							<form class="text-center" data-toggle="validator" role="form" action="./email" method="post">
+								<div class="form-group form-inline text-center">
+								<input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email" required>
+								<button type="submit" class="btn btn-primary">Continue</button>
+								</div>
+							</form>
+						<% } %>
+					<% }else{ %>
+						<div class="form-inline text-center">
+							<input type="text" class="form-control" id="website">
+							<button class="btn" data-clipboard-target="#website" onclick="copy()">
+								<img src="./images/clippy.svg" width="13" alt="Copy to clipboard">
+								Copy to clipboard
+							</button>
+						</div>
+						<br>
+						<div class="text-center">
+							<button class="btn" onclick="facebook()">
+									<img src="./images/facebook.svg" width="30">
+									Share on Facebook
+							</button>
+							<button class="btn" onclick="tweet()">
+									<img src="./images/twitter.svg" width="37">
+									Share on Twitter
+							</button>
+							<button class="btn" onclick="email()">
+									<img src="./images/email.svg" width="30">
+									Share by Email
+							</button>
+						</div>
+					<% } %>
+				<% } %>
+				<%if(extravoucher !== null) { %>
+					<h3 class="text-center">Bonus Amazon gift voucher from referrals: <%= extravoucher %></h4>
+				<% } %>
+				<br>
+				<h4 class="text-center">
+					Should you have any concern or complaint, contact either of us if possible (<a href="mailto:ss2@soton.ac.uk">ss2@soton.ac.uk</a>, <a href="mailto:mc18g14@soton.ac.uk">mc18g14@soton.ac.uk</a>) otherwise please contact the Research Integrity & Governance Team (<a href="mailto:rgoinfo@soton.ac.uk">rgoinfo@soton.ac.uk</a>).
+				</h4>
+				<br>
+				<br>
+				<img src="./images/University_of_Southampton_Logo.svg" style="float:right;width:25%">
+			</div>
+		</div> <!-- /container -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Thank You!</h4>
+					</div>
+					<div class="modal-body">
+						Your email: <%= email %> has been saved.
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary center-block" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

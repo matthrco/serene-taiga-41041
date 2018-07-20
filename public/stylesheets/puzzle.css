@@ -1,0 +1,40 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+header {
+	background-color:rgba(33, 33, 33, 0.9);
+	color:#ffffff;
+	display:block;
+	position:relative; line-height:2.5em
+}
+p,h2{
+	text-align: center;}
+header h2 {
+	font-size: 2em;
+	margin: 0px auto;
+	padding: 10px 0;
+	width: 80%;
+}
+header a, a:visited {
+	text-decoration:none;
+	color:#2caae7;
+}
+#game_area {
+	background-color: #ffffff;
+	margin: 20px auto;
+	position: relative;
+	box-shadow:6px 6px 15px 0 rgba(20,20,20,.6); 
+}
+#board div {
+	background: url("../images/dog-279698_960_720.jpg") no-repeat scroll 0 0 #ffffff;
+	cursor: pointer;
+	position: absolute;
+	text-align: center;
+	/* css3 shadow */
+	-moz-box-shadow: inset 0 0 20px #000000;
+	-webkit-box-shadow: inset 0 0 20px #000000;
+	-ms-box-shadow: inset 0 0 20px #000000;
+	-o-box-shadow: inset 0 0 20px #000000;
+	box-shadow: inset 0 0 20px #000000;
+}

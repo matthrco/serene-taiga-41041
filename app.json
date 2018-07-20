@@ -1,0 +1,5 @@
+{
+  "name": "Referral Incentives in Node.js",
+  "description": "A barebones Node.js app using Express 4",
+  "keywords": ["node", "express", "referral", "incentives"]
+}

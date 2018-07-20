@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% include ../partials/header.ejs %>
+		<link rel="stylesheet" type="text/css" href="./stylesheets/puzzle.css" />
+	</head>
+
+	<body>
+		<div class="container theme-showcase" role="main">
+			<!-- Main jumbotron for a primary marketing message or call to action -->
+			<div class="jumbotron" style="overflow: auto">
+				<h1 class="text-center">
+				Welcome
+				</h1>
+				<h4 class="text-center">
+				This is a research project which aims to investigate the effects that certain conditions have on the quality of crowdsourced tasks. Participant's behaviour will be used to give insight into what influences their ability to perform Human Computation tasks.  This study is funded by the University of Southampton.  
+				<br><br>
+				This study was approved by the University Ethics Committee of the University of Southampton, reference number 27533.
+				<br><br>
+				You will first complete a sliding puzzle task and then be given a <b>&pound;1 Amazon gift voucher</b> for taking part.
+				To do this you simply have to move one tile at a time by clicking on the tile you wish to fill the gap in the puzzle.
+				<br><br>
+				<img src="./images/complete.png" style="width:50%">
+				<br><br>
+				Once the image is in the correct order the puzzle is completed.
+				This usually takes 10 minutes on average but you will have 24 hours to complete the puzzle.
+				
+				<form class="text-center" data-toggle="validator" role="form" action="./nextinstructions" method="post">
+				<% if(treatment !== undefined) { %>
+					<% if(split !== undefined) { %>
+						<% if(treatment === 0) { %>
+							As you have followed a referral link, we are offering a further &pound;1 to be shared between your referrer and you. We decided that this bonus should be shared equally between you. Due to this, upon successful completion of the task you will also get an additional <b><%= 100-split %>p in Amazon gift vouchers</b>. The person who referred you will therefore receive a further <%= split %>p. If you choose that you do not wish to receive this bonus by ticking the box below, your referrer will <b>not</b> receive any additional vouchers either.
+							<br>
+							<label>
+								<input type="checkbox" name="bonus" value="true">
+								If you do not wish to receive this bonus, check here.
+							</label>
+						<% }else if(treatment === 1) { %>
+							As you have followed a referral link, we offered a further &pound;1 to be shared between your referrer and you. The split was decided by your referrer. Due to this, upon successful completion of the task you will also get an additional <b><%= 100-split %>p in Amazon gift vouchers</b>. The person who referred you will therefore receive a further <%= split %>p. If you choose that you do not wish to receive this bonus by ticking the box below, your referrer will <b>not</b> receive any additional vouchers either.
+							<br>
+							<label>
+								<input type="checkbox" name="bonus" value="true">
+								If you do not wish to receive this bonus, check here.
+							</label>
+						<% } %>
+					<% } %>
+				<% } %>
+				</h4>
+					<button type="submit" class="btn btn-lg btn-primary center-block">Continue</button>
+				</form>
+				<br>
+				<br>
+				<img src="./images/University_of_Southampton_Logo.svg" style="float:right;width:25%">
+			</div>
+		</div> <!-- /container -->
+	</body>
+</html>

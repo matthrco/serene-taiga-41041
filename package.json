@@ -1,0 +1,33 @@
+{
+  "name": "referral-incentives",
+  "version": "0.2.5",
+  "description": "A barebones Node.js app using Express 4",
+  "engines": {
+    "node": "6.11.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "clipboard": "^1.6.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "2.4.1",
+    "express": "4.13.3",
+    "nodemailer": "^4.0.1",
+    "pg": "6.1.0",
+    "request": "^2.79.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "node",
+    "express",
+    "referral",
+    "incentives"
+  ],
+  "license": "MIT"
+}
